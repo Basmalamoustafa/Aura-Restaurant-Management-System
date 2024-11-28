@@ -1,0 +1,29 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+:Customer: as Customer
+:Restaurant Staff: as Staff
+
+Customer --> (Login)
+Staff --> (Login)
+
+Customer --> (Logout)
+Staff --> (Logout)
+
+Customer --> (Create an account)
+Staff --> (Create an account)
+
+Customer --> (View Available Time Slots)
+Customer --> (Make Reservations)
+Customer --> (Modify Reservations)
+Customer --> (Cancel Reservations)
+Customer --> (Add Special Requests)
+
+Staff --> (Set Table Availability)
+Staff --> (Update Table Availability)
+
+note left of (Make Reservations)
+System automatically generates
+a unique reservation ID upon success.
+end note
+@enduml

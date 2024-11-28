@@ -1,0 +1,20 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor Staff
+participant "Authentication System"
+participant "Table Manager"
+database Database
+
+Staff -> "Authentication System": Login Request
+"Authentication System" -> Database: Verify Credentials
+Database --> "Authentication System": Credentials Verified
+"Authentication System" --> Staff: Login Successful
+
+Staff -> "Table Manager": Update Table Availability
+"Table Manager" -> Database: Update Availability Details
+Database --> "Table Manager": Availability Updated
+"Table Manager" --> Staff: Update Successful
+@enduml

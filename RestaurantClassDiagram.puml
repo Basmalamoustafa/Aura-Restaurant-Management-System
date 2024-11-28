@@ -1,0 +1,37 @@
+@startuml
+Class User {
+    + register()
+    + login()
+    + logout()
+}
+
+Class Customer {
+    + viewTables()
+    + makeReservation()
+    + modifyReservation()
+    + cancelReservation()
+}
+
+Class Staff {
+    + manageReservations()
+    + updateTableAvailability()
+}
+
+Class Reservation {
+    + createReservation()
+    + modifyReservation()
+    + cancelReservation()
+}
+
+Class Table {
+    + updateAvailability()
+}
+
+
+User "1" -- "0..*" Reservation : "makes"
+Customer "1" -- "1" User : "is a"
+Staff "1" -- "1" User : "is a"
+Reservation "1" -- "1" Table : "is for"
+Staff "1" -- "0..*" Table : "manages"
+Staff "1" -- "0..*" Reservation : "manages"
+@enduml
