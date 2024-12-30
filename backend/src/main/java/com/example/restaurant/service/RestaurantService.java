@@ -1,27 +1,11 @@
 package com.example.restaurant.service;
 
-import com.example.restaurant.model.User;
-import com.example.restaurant.repository.UserRepository;
 import com.example.restaurant.model.Restaurant;
 import com.example.restaurant.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
-@Service
-public class UserService {
-    @Autowired
-    private UserRepository userRepository;
-
-    public User saveUser(User user) {
-        return userRepository.save(user);
-    }
-
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
-}
 
 @Service
 public class RestaurantService {
