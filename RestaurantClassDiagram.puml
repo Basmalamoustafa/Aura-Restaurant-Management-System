@@ -62,7 +62,7 @@ note right of User
         Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, and one number.
         inv: self.password.length() >= 8 and self.password.matches('[a-zA-Z0-9]*') and self.password.matches('.*[A-Z].*') and self.password.matches('.*[0-9].*')
 
-        Email must follow a valid format (basic example).
+        Email must follow a valid format.
         inv: self.email.matches('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}')
 end note
 
