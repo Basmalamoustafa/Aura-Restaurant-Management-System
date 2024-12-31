@@ -1,26 +1,28 @@
 @startuml
-'https://plantuml.com/sequence-diagram
-
-autonumber
+'autonumber
 
 actor Customer
 participant "Authentication System"
 participant "Reservation Manager"
 participant "Table Manager"
-database Database
+participant "Database System"
 
 Customer -> "Authentication System": Login Request
-"Authentication System" -> Database: Verify Credentials
-Database --> "Authentication System": Credentials Verified
-"Authentication System" --> Customer: Login Successful
+alt Login Successful
+    "Authentication System" -> "Database System": Verify Credentials
+    "Database System" --> "Authentication System": Credentials Verified
+    "Authentication System" --> Customer: Login Successful
+else Login Unsuccessful
+    "Authentication System" --> Customer: Login Failed
+end
 
 Customer -> "Reservation Manager": Make Reservation
 "Reservation Manager" -> "Table Manager": Check Table Availability
-"Table Manager" -> Database: Query Available Tables
-Database --> "Table Manager": Return Available Tables
+"Table Manager" -> "Database System": Query Available Tables
+"Database System" --> "Table Manager": Return Available Tables
 "Table Manager" --> "Reservation Manager": Available Tables
 
-"Reservation Manager" -> Database: Store Reservation Details
-Database --> "Reservation Manager": Reservation Saved
+"Reservation Manager" -> "Database System": Store Reservation Details
+"Database System" --> "Reservation Manager": Reservation Saved
 "Reservation Manager" --> Customer: Reservation Confirmed (with ID)
 @enduml

@@ -6,15 +6,19 @@ autonumber
 actor Staff
 participant "Authentication System"
 participant "Table Manager"
-database Database
+participant "Database System"
 
 Staff -> "Authentication System": Login Request
-"Authentication System" -> Database: Verify Credentials
-Database --> "Authentication System": Credentials Verified
-"Authentication System" --> Staff: Login Successful
+alt Login Successful
+    "Authentication System" -> "Database System": Verify Credentials
+    "Database System" --> "Authentication System": Credentials Verified
+    "Authentication System" --> Staff: Login Successful
+else Login Unsuccessful
+    "Authentication System" --> Staff: Login Failed
+end
 
 Staff -> "Table Manager": Update Table Availability
-"Table Manager" -> Database: Update Availability Details
-Database --> "Table Manager": Availability Updated
+"Table Manager" -> "Database System": Update Availability Details
+"Database System" --> "Table Manager": Availability Updated
 "Table Manager" --> Staff: Update Successful
 @enduml

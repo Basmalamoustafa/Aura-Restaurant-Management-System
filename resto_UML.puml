@@ -1,29 +1,26 @@
 @startuml
-'https://plantuml.com/use-case-diagram
+left to right direction
 
-:Customer: as Customer
-:Restaurant Staff: as Staff
+actor "Customer" as Customer
+actor "Admin" as Admin
+actor "Staff" as Staff
 
-Customer --> (Login)
-Staff --> (Login)
+rectangle "Reservation System" {
+    usecase "Login" as UC1
+    usecase "View Tables" as UC2
+    usecase "Make Reservation" as UC3
+    usecase "Modify Reservation" as UC4
+    usecase "Cancel Reservation" as UC5
+    usecase "Manage Reservations" as UC6
+    usecase "Update Table Availability" as UC7
+}
 
-Customer --> (Logout)
-Staff --> (Logout)
-
-Customer --> (Create an account)
-Staff --> (Create an account)
-
-Customer --> (View Available Time Slots)
-Customer --> (Make Reservations)
-Customer --> (Modify Reservations)
-Customer --> (Cancel Reservations)
-Customer --> (Add Special Requests)
-
-Staff --> (Set Table Availability)
-Staff --> (Update Table Availability)
-
-note left of (Make Reservations)
-System automatically generates
-a unique reservation ID upon success.
-end note
+Customer --> UC1
+Customer --> UC2
+Customer --> UC3
+Customer --> UC4
+Customer --> UC5
+Staff --> UC6
+Staff --> UC7
+Admin --> UC6
 @enduml
