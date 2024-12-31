@@ -1,37 +1,74 @@
 @startuml
-Class User {
-    + register()
-    + login()
-    + logout()
+class User {
+    - userID: String
+    - name: String
+    - email: String
+    - password: String
+    + register(): void
+    + login(): void
+    + logout(): void
 }
 
-Class Customer {
-    + viewTables()
-    + makeReservation()
-    + modifyReservation()
-    + cancelReservation()
+class Customer extends User {
+    + viewTables(): void
+    + makeReservation(): void
+    + modifyReservation(): void
+    + cancelReservation(): void
 }
 
-Class Staff {
-    + manageReservations()
-    + updateTableAvailability()
+class Staff extends User {
+    - staffID: String
+    - role: String
+    + manageReservations(): void
+    + updateTableAvailability(): void
 }
 
-Class Reservation {
-    + createReservation()
-    + modifyReservation()
-    + cancelReservation()
+class Reservation {
+    - reservationID: String
+    - date: Date
+    - time: Time
+    - specialRequests: String
+    + createReservation(): void
+    + modifyReservation(): void
+    + cancelReservation(): void
 }
 
-Class Table {
-    + updateAvailability()
+class Table {
+    - tableID: String
+    - capacity: int
+    - isAvailable: boolean
+    + updateAvailability(): void
 }
 
+note right of Reservation
+        A reservation must be associated with a table that is available.
+        inv: self.table.isAvailable = true
 
-User "1" -- "0..*" Reservation : "makes"
-Customer "1" -- "1" User : "is a"
-Staff "1" -- "1" User : "is a"
-Reservation "1" -- "1" Table : "is for"
-Staff "1" -- "0..*" Table : "manages"
-Staff "1" -- "0..*" Reservation : "manages"
+        A reservation must have a valid date and time.
+        inv: self.date <> null and self.time <> null
+end note
+
+note right of Table
+        A table cannot be reserved if it is not available.
+        inv: self.isAvailable = true implies self.reservations->size() = 0
+end note
+
+note right of Customer
+        A customer cannot make a reservation if they are logged out.
+        inv: self.isLoggedIn() implies self.makeReservation() = true
+end note
+
+note right of User
+        Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, and one number.
+        inv: self.password.length() >= 8 and self.password.matches('[a-zA-Z0-9]*') and self.password.matches('.*[A-Z].*') and self.password.matches('.*[0-9].*')
+
+        Email must follow a valid format (basic example).
+        inv: self.email.matches('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}')
+end note
+
+User "1" --> "0..*" Reservation
+Reservation "1" --> "1" Table
+
+Staff "1" --> "0..*" Table
+Staff "1" --> "0..*" Reservation
 @enduml
