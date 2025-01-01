@@ -1,0 +1,78 @@
+@startuml
+class User {
+  +Long id
+  +String username
+  +String password
+  +String email
+  +register(): void
+  +login(): boolean
+}
+
+class Customer extends User {
+  +String phoneNumber
+  +makeReservation(date: Date, time: Time, guests: int): Reservation
+  +viewMenu(): List<Item>
+  +provideFeedback(comments: String, rating: int): Feedback
+}
+
+class Staff extends User {
+  +String role
+  +updateTableAvailability(tableNumber: int, available: boolean): void
+}
+
+class Administrator extends User {
+  +viewReservations(): List<Reservation>
+  +viewFeedback(): List<Feedback>
+}
+
+class Reservation {
+  +Long id
+  +Date date
+  +Time time
+  +int tableNumber
+  +int guests
+  +sendConfirmationEmail(): void
+}
+
+class Order {
+  +Long id
+  +List<Item> items
+  +String status
+  +updateKitchen(): void
+}
+
+class Feedback {
+  +Long id
+  +String comments
+  +int rating
+  +storeFeedback(): void
+}
+
+class Item {
+  +Long id
+  +String name
+  +double price
+}
+
+class OrderItem {
+  +Long id
+  +int quantity
+  +Order order
+  +Item item
+}
+
+
+
+
+
+Customer "1" -- "0..*" Reservation: "makes"
+Customer "1" -- "0..*" Order: "places"
+Customer "1" -- "0..*" Feedback: "provides"
+
+Order "1" o-- "0..*" OrderItem: "contains"
+Item "1" -- "0..*" OrderItem: "is part of"
+
+Reservation "1" *-- "1" Customer: "belongs to"
+Order "1" *-- "1" Customer: "belongs to"
+Feedback "1" *-- "1" Customer: "belongs to"
+@enduml
