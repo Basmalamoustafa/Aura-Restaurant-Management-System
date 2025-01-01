@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura - Reservation Confirmed</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">Aura</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="reservation.html">Book Now</a></li>
+                <li><a href="my_bookings.html">My Bookings</a></li>
+            </ul>
+        </nav>
+        <a href="SignUp.html">
+            <button class="signup-btn">Sign Up</button>
+        </a>
+    </header>
+
+    <main>
+        <section class="confirmation-section">
+            <div class="confirmation-container">
+                <h2>Your reservation is confirmed!</h2>
+                <p><strong>Reservation ID:</strong> 12345</p>
+                <p><strong>Date:</strong> <span id="confirm-date"></span></p>
+                <p><strong>Time:</strong> <span id="confirm-time"></span></p>
+                <p><strong>People:</strong> <span id="confirm-people"></span></p>
+                <p><strong>Special Requests:</strong> <span id="confirm-requests"></span></p>
+                <img src="confirm.png" alt="Confirmed">
+                <a id="my-bookings-link" href="my_bookings.html">
+                    <button class="submit-btn">View My Bookings</button>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const date = urlParams.get('date');
+        const time = urlParams.get('time');
+        const people = urlParams.get('people');
+        const requests = urlParams.get('requests');
+
+        document.getElementById('confirm-date').textContent = date;
+        document.getElementById('confirm-time').textContent = time;
+        document.getElementById('confirm-people').textContent = people;
+        document.getElementById('confirm-requests').textContent = requests;
+
+        const myBookingsLink = document.getElementById('my-bookings-link');
+        myBookingsLink.href = `my_bookings.html?date=${date}&time=${time}&people=${people}&id=12345`;
+    </script>
+</body>
+</html>

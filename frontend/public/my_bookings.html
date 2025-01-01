@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura - My Bookings</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">Aura</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="reservation.html">Book Now</a></li>
+                <li><a href="my_bookings.html">My Bookings</a></li>
+            </ul>
+        </nav>
+        <a href="SignUp.html">
+            <button class="signup-btn">Sign Up</button>
+        </a>
+    </header>
+
+    <main>
+        <section class="bookings-section">
+            <div class="bookings-container" id="reservation">
+                <div class="bookings-image">
+                    <img src="restaurant.png" alt="Restaurant Interior">
+                </div>
+                <div class="bookings-details">
+                    <h2>Reservation ID: <span id="reservation-id"></span></h2>
+                    <p><strong>Date:</strong> <span id="reservation-date"></span></p>
+                    <p><strong>Time:</strong> <span id="reservation-time"></span></p>
+                    <p><strong>People:</strong> <span id="reservation-people"></span></p>
+                    <button class="cancel-btn" onclick="cancelReservation()">Cancel Reservation</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const date = urlParams.get('date');
+        const time = urlParams.get('time');
+        const people = urlParams.get('people');
+        const id = urlParams.get('id');
+
+        document.getElementById('reservation-id').textContent = id;
+        document.getElementById('reservation-date').textContent = date;
+        document.getElementById('reservation-time').textContent = time;
+        document.getElementById('reservation-people').textContent = people;
+
+        function cancelReservation() {
+            const reservationElement = document.getElementById('reservation');
+            reservationElement.innerHTML = '<p>Your reservation has been canceled.</p>';
+        }
+    </script>
+</body>
+</html>

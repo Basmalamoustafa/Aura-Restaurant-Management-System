@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura - Confirmation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">Aura</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="reservation.html">Book Now</a></li>
+                <li><a href="my_bookings.html">My Bookings</a></li>
+            </ul>
+        </nav>
+        <a href="SignUp.html">
+            <button class="signup-btn">Sign Up</button>
+        </a>
+    </header>
+
+    <main>
+        <section class="confirmation-section">
+            <div class="confirmation-container">
+                <h2>Confirm Your Reservation</h2>
+                <p><strong>Date:</strong> <span id="confirm-date"></span></p>
+                <p><strong>Time:</strong> <span id="confirm-time"></span></p>
+                <p><strong>People:</strong> <span id="confirm-people"></span></p>
+                <form id="confirmation-form">
+                    <div class="form-group">
+                        <label for="requests">Special Requests</label>
+                        <textarea id="requests" name="requests" placeholder="Enter any special requests"></textarea>
+                    </div>
+                    <input type="hidden" id="date" name="date">
+                    <input type="hidden" id="time" name="time">
+                    <input type="hidden" id="people" name="people">
+                    <button type="submit" class="confirm-btn">Confirm Reservation</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const date = urlParams.get('date');
+        const time = urlParams.get('time');
+        const people = urlParams.get('people');
+
+        document.getElementById('confirm-date').textContent = date;
+        document.getElementById('confirm-time').textContent = time;
+        document.getElementById('confirm-people').textContent = people;
+
+        document.getElementById('date').value = date;
+        document.getElementById('time').value = time;
+        document.getElementById('people').value = people;
+
+        document.getElementById('confirmation-form').addEventListener('submit', (event) => {
+            event.preventDefault();
+            const requests = document.getElementById('requests').value;
+            window.location.href = `confirmed.html?date=${date}&time=${time}&people=${people}&requests=${requests}`;
+        });
+    </script>
+</body>
+</html>
